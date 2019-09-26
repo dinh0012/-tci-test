@@ -1,0 +1,8 @@
+export IP_SOURCE=127.10.0.1
+export IP_REDIS=127.10.0.2
+export REDIS_PORT=6379
+export IP_DB=127.10.0.3
+export DB_ROOT_PASS=root
+export DB_NAME=my-database
+export DB_USER=user01
+export DB_PASS=user01

@@ -1,0 +1,65 @@
+version: "3.1"
+services:
+  webserver:
+    image: nginx
+    container_name: webserver-tci
+    volumes:
+      - ./runtime/nginx:/nginx
+      - ./conf/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - source-code
+    ports:
+      - "${IP_SOURCE}:80:80"
+    command: nginx -g 'daemon off;'
+
+  source-code:
+    build: ./src
+    image: source-code
+    container_name: source-code-tci
+    volumes:
+      - ./src:/var/www/src
+      - ./conf/supervisord.conf:/etc/supervisor.d/job-queue.ini
+      - ./cron:/etc/periodic
+      - ./cron/crontab.txt:/var/spool/cron/crontabs/root
+      - ./php-ci:/var/www/php-ci
+    environment:
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASS}
+      - DB_DSN_VALUE=${DOMAIN_DB}
+      - REDIS_HOST=${DOMAIN_REDIS}
+      - REDIS_PORT=${REDIS_PORT}
+      - MODE=DEV
+    depends_on:
+      - mysql
+      - redis
+    links:
+      - mysql:${IP_DB}
+      - redis:${IP_REDIS}
+
+  mysql:
+    image: mysql:5.5
+    container_name: database-tci
+    volumes:
+      - ./runtime/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASS}
+      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+    ports:
+      - "${IP_DB}:3306:3306"
+    command:
+      - --innodb_use_native_aio=0
+      - --character-set-server=utf8
+      - --collation-server=utf8_unicode_ci
+
+  redis:
+    image: redis:3.2.9-alpine
+    container_name: redis-tcicomposer global require laravel/installer
+    ports:
+      - "${IP_REDIS}:6379:6379"
+
+networks:
+  default:
+    external:
+      name: docker-boilerplate
