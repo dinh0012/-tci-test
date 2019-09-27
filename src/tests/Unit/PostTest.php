@@ -14,17 +14,16 @@ class PostTest extends TestCase
     protected $post;
 
     /** @test */
-    public function a_post_has_author()
+    public function testPostHasAuthor()
     {
-        $post = factory(Post::class)->create();
+        $post = create(Post::class);
         $this->assertInstanceOf(User::class, $post->author);
     }
-
 
     /** @test */
     public function a_post_belongs_to_a_category()
     {
-        $post = factory(Post::class)->create();
+        $post = create(Post::class);
         $this->assertInstanceOf('App\Category', $post->category);
     }
 }

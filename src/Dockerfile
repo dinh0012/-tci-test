@@ -18,7 +18,7 @@ RUN apk add --no-cache $PHPIZE_DEPS \
 
   #  && pecl install imagick-3.4.3 \
   #  && docker-php-ext-enable imagick \
-    && docker-php-ext-enable gd \
+    && docker-php-ext-enable gd
 
 #RUN pecl install redis-4.0.1 && docker-php-ext-enable redis
 ENV REDIS_VERSION 4.0.1
@@ -28,7 +28,7 @@ RUN curl -L -o /tmp/redis.tar.gz https://github.com/phpredis/phpredis/archive/$R
    && mkdir -p /usr/src/php/ext \
    && mv phpredis-* /usr/src/php/ext/redis \
    && docker-php-ext-install redis
-   
+
 RUN apk add supervisor
 
 WORKDIR /var/www/src
