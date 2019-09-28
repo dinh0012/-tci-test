@@ -40,7 +40,6 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'content' => 'required',
-            'category_id' => 'required',
             'is_published' => 'required',
         ]);
         $this->postRepository->create([
@@ -48,7 +47,6 @@ class PostController extends Controller
             'title' => $data['title'],
             'content' => $data['content'],
             'is_published' => $data['is_published'] ?? 0,
-            'category_id' => $data['category_id'],
         ]);
 
         return redirect()->route('posts');
@@ -61,7 +59,6 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'content' => 'required',
-            'category_id' => 'required',
             'is_published' => 'required',
         ]);
         $this->postRepository->update($request->all(), $post->id);

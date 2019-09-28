@@ -16,7 +16,6 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('category_id');
             $table->string('title')->nullable(false);
             $table->text('content')->nullable(false);
             $table->enum('is_published', [0, 1])
@@ -24,7 +23,6 @@ class CreatePostsTable extends Migration
                 ->comment('1: published;0: private');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

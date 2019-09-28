@@ -64,14 +64,6 @@ class CreatePostTest extends TestCase
             ->assertSessionHasErrors('content');
     }
 
-    /**
-     *
-     */
-    function testPostRequiresCategoryId()
-    {
-        $this->publishPost(['category_id' => null])
-            ->assertSessionHasErrors('category_id');
-    }
 
     /**
      *

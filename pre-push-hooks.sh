@@ -9,7 +9,7 @@ else
 fi
 
 # code checker
-docker exec -i source-code sh -c "make check"
+docker exec -i source-code-tci sh -c "make check"
 if [ $? -ne 0 ]; then
   if [ $pop -eq 1 ]; then
     git stash pop
@@ -17,7 +17,7 @@ if [ $? -ne 0 ]; then
   exit 1;
 fi
 # prepare testData + run unit test
-docker exec -i source-code sh -c "make test"
+docker exec -i source-code-tci sh -c "make test"
 if [ $? -ne 0 ]; then
   if [ $pop -eq 1 ]; then
     git stash pop

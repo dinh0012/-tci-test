@@ -8,7 +8,7 @@ class Post extends Model
 {
     protected $table = 'posts';
     protected $fillable = [
-        'user_id', 'category_id', 'title', 'content', 'is_published'
+        'user_id', 'title', 'content', 'is_published'
     ];
 
     public function rules()
@@ -23,9 +23,4 @@ class Post extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
 }

@@ -24,3 +24,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('posts', 'PostController@store')->name('create.post');
     Route::delete('posts/{post}', 'PostController@delete')->name('delete.post');
 });
+Route::group(['middleware' => ['admin'], 'prefix' => 'admin'], function () {
+    Route::get('posts', 'PostController@index')->name('admin.posts');
+    Route::get('posts/{post}/publish', 'PostController@edit')->name('admin.publish.get');
+    Route::post('posts/{post}/publish', 'PostController@update')->name('admin.publish.post');
+});

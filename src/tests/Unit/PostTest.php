@@ -19,11 +19,4 @@ class PostTest extends TestCase
         $post = create(Post::class);
         $this->assertInstanceOf(User::class, $post->author);
     }
-
-    /** @test */
-    public function a_post_belongs_to_a_category()
-    {
-        $post = create(Post::class);
-        $this->assertInstanceOf('App\Category', $post->category);
-    }
 }
